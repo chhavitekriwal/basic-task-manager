@@ -7,7 +7,7 @@ const createTaskList = async (req,res) => {
         const taskList = new TaskList({
             name,
             description,
-            active: false
+            active: true
         });
         await taskList.save();
         console.log('New List Added');
