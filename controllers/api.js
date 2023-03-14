@@ -63,7 +63,7 @@ const createTask =  async (req,res) => {
         }
 
         if(periodType === 'yearly') {
-            const dueDateYear = parseInt(dueDate.substring(0,4));
+            const dueDateYear = parseInt(dueDate.substring(6));
             if(dueDateYear <= period) throw new Error('Due date earlier than end of period');
         }
 
@@ -88,22 +88,32 @@ const createTask =  async (req,res) => {
 
 const listTasks = async (req,res) => {
     try {
-        const {searchText} = req.query;
-        if(!searchText) {
-            const tasksList = await Task.find().populate("taskListId").lean();
-            tasksList.map(task => {
-                task.dueDate = task.dueDate.toLocaleDateString("en-GB",{timezone:'Asia/Kolkata'}).split('/').join('-');
-                task.taskListName = task.taskListId.name;
+        const paginateOptions = {
+            populate: 'taskListId',
+            lean: true,
+            leanWithId: false,
+            offset: req.query.offset,
+            limit: req.query.limit | 10
+        };
+        const tasksres = await Task.paginate({},paginateOptions);
+        const tasksList = tasksres.docs;
+        console.log(tasksres.hasNextPage, tasksres.hasPrevPage);
+        tasksList.map(task => {
+            task.dueDate = task.dueDate.toLocaleDateString("en-GB",{timezone:'Asia/Kolkata'}).split('/').join('-');
+            task.taskListName = task.taskListId.name;
 
-                delete task.taskListId;
-                delete task._id;
-                delete task.__v;
+            delete task.taskListId;
+            delete task._id;
+            delete task.__v;
                 
-                return task;
-            })
-            res.status(200).json({status: 'Success', tasksList});
-            console.log(tasksList);
-        }
+            return task;
+        })
+        res.status(200).json({
+            status: 'Success',
+            tasksListedCount: tasksList.length,  
+            tasksList
+        });
+        console.log(tasksList);
     } catch(err) {
         console.error(err);
         res.status(500).json({status:'Failure', details: err.message});
