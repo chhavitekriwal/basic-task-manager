@@ -11,7 +11,7 @@ const createTaskList = async (req,res) => {
         });
         await taskList.save();
         console.log('New List Added');
-        res.status(201).json({status: 'Created'});
+        res.status(201).json({status: 'Success', details: 'New list created'});
     } catch(err) {
         const response = {'Status':'Failure', 'Details':err.message};
         console.error(err);
@@ -85,4 +85,29 @@ const createTask =  async (req,res) => {
         res.status(400).json({status:'Failure', details: err.message});
     }
 }
-module.exports = {createTaskList, createTask};
+
+const listTasks = async (req,res) => {
+    try {
+        const {searchText} = req.query;
+        if(!searchText) {
+            const tasksList = await Task.find().populate("taskListId").lean();
+            tasksList.map(task => {
+                task.dueDate = task.dueDate.toLocaleDateString("en-GB",{timezone:'Asia/Kolkata'}).split('/').join('-');
+                task.taskListName = task.taskListId.name;
+
+                delete task.taskListId;
+                delete task._id;
+                delete task.__v;
+                
+                return task;
+            })
+            res.status(200).json({status: 'Success', tasksList});
+            console.log(tasksList);
+        }
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({status:'Failure', details: err.message});
+    }
+}
+
+module.exports = {createTaskList, createTask,listTasks};
