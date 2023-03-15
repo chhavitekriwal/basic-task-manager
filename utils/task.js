@@ -1,46 +1,46 @@
 const getPeriodMonthAndYear = period => {
-  const periodArr = period.split(" ");
-  if (periodArr.length != 2) throw new Error("Invalid period provided for monthly period type");
+  const periodArr = period.split(' ');
+  if (periodArr.length != 2) throw new Error('Invalid period provided for monthly period type');
   let periodMonthIndex = null;
   switch (periodArr[0]) {
-    case "Jan":
+    case 'Jan':
       periodMonthIndex = 1;
       break;
-    case "Feb":
+    case 'Feb':
       periodMonthIndex = 2;
       break;
-    case "Mar":
+    case 'Mar':
       periodMonthIndex = 3;
       break;
-    case "Apr":
+    case 'Apr':
       periodMonthIndex = 4;
       break;
-    case "May":
+    case 'May':
       periodMonthIndex = 5;
       break;
-    case "Jun":
+    case 'Jun':
       periodMonthIndex = 6;
       break;
-    case "Jul":
+    case 'Jul':
       periodMonthIndex = 7;
       break;
-    case "Aug":
+    case 'Aug':
       periodMonthIndex = 8;
       break;
-    case "Sept":
+    case 'Sept':
       periodMonthIndex = 9;
       break;
-    case "Oct":
+    case 'Oct':
       periodMonthIndex = 10;
       break;
-    case "Nov":
+    case 'Nov':
       periodMonthIndex = 11;
       break;
-    case "Dec":
+    case 'Dec':
       periodMonthIndex = 12;
       break;
     default: {
-      throw new Error("Invalid month provided for period");
+      throw new Error('Invalid month provided for period');
     }
   }
   const periodYear = parseInt(periodArr[1]);
@@ -48,20 +48,24 @@ const getPeriodMonthAndYear = period => {
 };
 
 const getDueMonthAndYear = dueDate => {
-  const dueDateArr = dueDate.split("-");
+  const dueDateArr = dueDate.split('-');
   const dueMonth = parseInt(dueDateArr[1]),
     dueYear = parseInt(dueDateArr[2]);
-  const dueDateNew = dueDateArr.reverse().join("/");
+  const dueDateNew = dueDateArr.reverse().join('/');
   return {dueMonth, dueYear, dueDateNew};
 };
 
 const getQuarterAndYear = period => {
-  const periodArr = period.split(" ");
-  if (periodArr.length != 2) throw new Error("Invalid period provided for quarterly period type");
+  const periodArr = period.split(' ');
+  if (periodArr.length != 2) throw new Error('Invalid period provided for quarterly period type');
   const periodQuarter = parseInt(periodArr[0][1]),
     periodYear = parseInt(periodArr[1]);
-  if (periodQuarter < 1 || periodQuarter > 4) throw new Error("Invalid quarter provided for period");
+  if (periodQuarter < 1 || periodQuarter > 4) throw new Error('Invalid quarter provided for period');
   return {periodQuarter, periodYear};
 };
 
-module.exports = {getPeriodMonthAndYear, getDueMonthAndYear, getQuarterAndYear};
+const convertDateFormat = date => {
+  return date.toLocaleDateString('en-GB', {timezone: 'Asia/Kolkata'}).split('/').join('-');
+};
+
+module.exports = {getPeriodMonthAndYear, getDueMonthAndYear, getQuarterAndYear, convertDateFormat};

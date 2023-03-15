@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const taskListSchema = new mongoose.Schema({
   name: String,
@@ -6,4 +6,4 @@ const taskListSchema = new mongoose.Schema({
   active: Boolean,
 });
 
-module.exports = mongoose.model("TaskList", taskListSchema);
+module.exports = mongoose.model('TaskList', taskListSchema);
