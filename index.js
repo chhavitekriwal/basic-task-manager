@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const connectDB = require("./utils/db");
-const route = require('./routes/api');
+const routes = require('./routes/api.route');
 
 connectDB()
     .then(()=>{
@@ -18,5 +18,5 @@ app.use(express.json());
 app.get("/",(req,res) => {
     res.status(200).json({CTS: "Up and running"});
 });
-app.use('/api',route);
+app.use('/api',routes);
 
