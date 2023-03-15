@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
+const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const taskSchema = new mongoose.Schema({
     name: String,
@@ -7,9 +7,9 @@ const taskSchema = new mongoose.Schema({
     dueDate: Date,
     periodType: String,
     period: String,
-    taskListId: {type: mongoose.Schema.Types.ObjectId, ref: 'Task List', required: true}
+    taskListId: {type: mongoose.Schema.Types.ObjectId, ref: "TaskList", required: true},
 });
 
 taskSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model('Task', taskSchema);
+module.exports = mongoose.model("Task", taskSchema);

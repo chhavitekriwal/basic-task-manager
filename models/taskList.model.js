@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const taskListSchema = new mongoose.Schema({
     name: String,
     description: String,
-    active: Boolean
+    active: Boolean,
 });
 
-module.exports = mongoose.model('Task List', taskListSchema);
+module.exports = mongoose.model("TaskList", taskListSchema);

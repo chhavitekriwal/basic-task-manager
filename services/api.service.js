@@ -9,6 +9,7 @@ const createTaskList = async (name,description) => {
         active: true
     });
     await taskList.save();
+    return taskList;
 }
 
 const createTask = async (name,description,periodType,period,dueDate,taskListId) => {
@@ -39,6 +40,7 @@ const createTask = async (name,description,periodType,period,dueDate,taskListId)
         taskListId
     });
     await task.save();
+    return task;
 }
 
 const listTasks = async (searchText,page=1,limit=10) => {

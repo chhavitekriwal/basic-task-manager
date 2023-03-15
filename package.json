@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "prettier": "prettier --check **/*.js",
+    "prettier:fix": "prettier --write **/*.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -14,6 +16,13 @@
     "mongoose-paginate-v2": "^1.7.1"
   },
   "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
     "nodemon": "^2.0.21"
+  },
+  "lint-staged": {
+    "./src/**/*.{js,md}": [
+      "prettier --write **/*.{js,md}"
+    ]
   }
 }

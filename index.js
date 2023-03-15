@@ -4,15 +4,6 @@ require("dotenv").config();
 const connectDB = require("./utils/db");
 const routes = require('./routes/api.route');
 
-connectDB()
-    .then(()=>{
-        app.listen(5000,()=>console.log('Server is listening on 5000'));
-    })
-    .catch(err => {
-        console.log(err.message);
-        console.error('Failed to start server due to database connection failure')
-    });
-
 app.use(express.json());
 
 app.get("/",(req,res) => {
@@ -20,3 +11,11 @@ app.get("/",(req,res) => {
 });
 app.use('/api',routes);
 
+    connectDB()
+        .then(()=>{
+            app.listen(5000,()=>console.log('Server is listening on 5000'));
+        })
+        .catch(err => {
+            console.log(err.message);
+            console.error('Failed to start server due to database connection failure')
+        });
