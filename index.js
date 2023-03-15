@@ -26,8 +26,12 @@ app.use('/api', routes);
 // Start Server
 connectDB()
   .then(() => {
-    app.listen(5000, () => console.log('Server is listening on 5000'));
+    app.listen(process.env.PORT, () => console.log('Server is listening on 5000'));
   })
   .catch(err => {
     logger.error('Failed to start server due to database connection failure\n%s', err.message);
   });
+
+  // Write Readme
+  // Refactor in function
+  // Dockerfile

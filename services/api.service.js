@@ -1,6 +1,7 @@
 const TaskList = require('../models/taskList.model');
 const Task = require('../models/task.model');
-const {getPeriodMonthAndYear, getDueMonthAndYear, getQuarterAndYear, convertDateFormat} = require('../utils/task');
+const {convertIndianToISO, convertISOToIndian} = require('../utils/task');
+const {validateTaskRequest} = require('../utils/validate');
 
 const createTaskList = (name, description) => {
   return TaskList.create({
@@ -11,26 +12,12 @@ const createTaskList = (name, description) => {
 };
 
 const createTask = (name, description, periodType, period, dueDate, taskListId) => {
-  const {dueMonth, dueYear, dueDateNew} = getDueMonthAndYear(dueDate);
-
-  if (periodType != 'monthly' && periodType != 'yearly' && periodType != 'quarterly')
-    throw new Error('Invalid period type provided for task.');
-  if (periodType === 'monthly') {
-    const {periodMonthIndex, periodYear} = getPeriodMonthAndYear(period);
-    if (dueYear < periodYear) throw new Error('Due date earlier than end of period');
-    if (dueYear === periodYear && dueMonth <= periodMonthIndex) throw new Error('Due date earlier than end of period');
-  } else if (periodType === 'quarterly') {
-    const {periodQuarter, periodYear} = getQuarterAndYear(period);
-    if (dueYear < periodYear) throw new Error('Due date earlier than end of period');
-    if (dueYear == periodYear && dueMonth <= 3 * periodQuarter) throw new Error('Due date earlier than end of period');
-  } else if (periodType === 'yearly') {
-    if (dueYear <= period) throw new Error('Due date earlier than end of period');
-  }
-
+  validateTaskRequest(periodType, period, dueDate);
+  dueDate = convertIndianToISO(dueDate);
   return Task.create({
     name,
     description,
-    dueDate: new Date(dueDateNew),
+    dueDate,
     periodType,
     period,
     taskListId,
@@ -51,7 +38,7 @@ const listTasks = async (searchText, page = 1, limit = 10) => {
   );
   const tasksList = tasksres.docs;
   tasksList.map(task => {
-    task.dueDate = convertDateFormat(task.dueDate);
+    task.dueDate = convertISOToIndian(task.dueDate);
     task.taskListName = task.taskListId.name;
 
     delete task.taskListId;

@@ -51,8 +51,7 @@ const getDueMonthAndYear = dueDate => {
   const dueDateArr = dueDate.split('-');
   const dueMonth = parseInt(dueDateArr[1]),
     dueYear = parseInt(dueDateArr[2]);
-  const dueDateNew = dueDateArr.reverse().join('/');
-  return {dueMonth, dueYear, dueDateNew};
+  return {dueMonth, dueYear};
 };
 
 const getQuarterAndYear = period => {
@@ -64,8 +63,12 @@ const getQuarterAndYear = period => {
   return {periodQuarter, periodYear};
 };
 
-const convertDateFormat = date => {
+const convertISOToIndian = date => {
   return date.toLocaleDateString('en-GB', {timezone: 'Asia/Kolkata'}).split('/').join('-');
 };
 
-module.exports = {getPeriodMonthAndYear, getDueMonthAndYear, getQuarterAndYear, convertDateFormat};
+const convertIndianToISO = date => {
+  return new Date(date.split('-').reverse().join('/'));
+}
+
+module.exports = {getPeriodMonthAndYear, getDueMonthAndYear, getQuarterAndYear, convertISOToIndian,convertIndianToISO};
