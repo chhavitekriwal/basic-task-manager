@@ -31,7 +31,3 @@ connectDB()
   .catch(err => {
     logger.error('Failed to start server due to database connection failure\n%s', err.message);
   });
-
-  // Write Readme
-  // Refactor in function
-  // Dockerfile
