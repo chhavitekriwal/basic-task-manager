@@ -13,7 +13,6 @@ const createTaskList = async (name,description) => {
 
 const createTask = async (name,description,periodType,period,dueDate,taskListId) => {
     const {dueMonth, dueYear, dueDateNew} = getDueMonthAndYear(dueDate);
-    console.log(dueDateNew);
     if(periodType!='monthly' && periodType!='yearly' && periodType!='quarterly') throw new Error('Invalid period type provided for task.');
     if(periodType === 'monthly') {
         const {periodMonthIndex,periodYear} = getPeriodMonthAndYear(period); 
