@@ -69,6 +69,6 @@ const convertISOToIndian = date => {
 
 const convertIndianToISO = date => {
   return new Date(date.split('-').reverse().join('/'));
-}
+};
 
-module.exports = {getPeriodMonthAndYear, getDueMonthAndYear, getQuarterAndYear, convertISOToIndian,convertIndianToISO};
+module.exports = {getPeriodMonthAndYear, getDueMonthAndYear, getQuarterAndYear, convertISOToIndian, convertIndianToISO};
