@@ -92,12 +92,12 @@ const listTasks = async (req,res) => {
             populate: 'taskListId',
             lean: true,
             leanWithId: false,
-            offset: req.query.offset,
-            limit: req.query.limit | 10
+            page: req.query.page || 1,
+            limit: req.query.limit || 10
         };
-        const tasksres = await Task.paginate({},paginateOptions);
+        const searchText = req.query.searchText;
+        const tasksres = await Task.paginate({$or: [{name:new RegExp(searchText,'i')},{description:new RegExp(searchText,'i')}]},paginateOptions);
         const tasksList = tasksres.docs;
-        console.log(tasksres.hasNextPage, tasksres.hasPrevPage);
         tasksList.map(task => {
             task.dueDate = task.dueDate.toLocaleDateString("en-GB",{timezone:'Asia/Kolkata'}).split('/').join('-');
             task.taskListName = task.taskListId.name;
@@ -113,7 +113,6 @@ const listTasks = async (req,res) => {
             tasksListedCount: tasksList.length,  
             tasksList
         });
-        console.log(tasksList);
     } catch(err) {
         console.error(err);
         res.status(500).json({status:'Failure', details: err.message});
