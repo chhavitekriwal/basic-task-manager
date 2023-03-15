@@ -7,8 +7,8 @@ const createTaskList = async (req, res) => {
     await apiService.createTaskList(name, description);
     res.status(201).json({status: 'Success', details: 'New list created'});
   } catch (err) {
-    logger.error(err);
     res.status(400).json({status: 'Failure', details: err.message});
+    logger.error(err);
   }
 };
 
@@ -18,8 +18,8 @@ const createTask = async (req, res) => {
     await apiService.createTask(name, description, periodType, period, dueDate, taskListId);
     res.status(201).json({status: 'Success', details: 'Created new task'});
   } catch (err) {
-    logger.error(err);
     res.status(400).json({status: 'Failure', details: err.message});
+    logger.error(err);
   }
 };
 
@@ -33,8 +33,8 @@ const listTasks = async (req, res) => {
       tasksList,
     });
   } catch (err) {
-    logger.error(err);
     res.status(500).json({status: 'Failure', details: err.message});
+    logger.error(err);
   }
 };
 
