@@ -26,6 +26,7 @@ const createTask = async (name, description, periodType, period, dueDate, taskLi
   });
   newTask = await newTask.populate('taskListId');
   newTask._doc.taskListName = newTask._doc.taskListId.name;
+  newTask._doc.dueDate = convertISOToIndian(newTask._doc.dueDate);
   delete newTask._doc._id;
   delete newTask._doc.__v;
   delete newTask._doc.taskListId;
