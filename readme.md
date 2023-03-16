@@ -67,7 +67,7 @@ Request Body:
 | :------- | :------ | :----------------------|
 |`name`     | `string`| **Required**. Name of task |
 |`description`| `string`| Task description|
-|`periodType`| `string`|monthly, quarterly or yearly|
-|`period`|`string`|`Mon Year`, `QQ Year` or `Year` respectively|
-|`dueDate`|`string`|`dd-mm-yyyy` strictly after end of period|
-|`taskListId`|`string`|ID of list to which task belongs|
+|`periodType`| `string`| **Required**. monthly, quarterly or yearly|
+|`period`|`string`|**Required**.`Mon Year`, `QQ Year` or `Year` respectively|
+|`dueDate`|`string`|**Required**.`dd-mm-yyyy` strictly after end of period|
+|`taskListId`|`string`|**Required**. ID of list to which task belongs|

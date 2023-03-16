@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 const taskSchema = new mongoose.Schema({
-  name: String,
+  name: {type: String, required: true},
   description: String,
   dueDate: {type: Date, required: true},
   periodType: {type: String, required: true},
