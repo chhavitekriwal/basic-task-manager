@@ -26,7 +26,7 @@ app.use('/api', routes);
 // Start Server
 connectDB()
   .then(() => {
-    app.listen(process.env.PORT, () => console.log('Server is listening on 5000'));
+    app.listen(process.env.PORT, () => logger.info('Server is listening on 5000'));
   })
   .catch(err => {
     logger.error('Failed to start server due to database connection failure\n%s', err.message);

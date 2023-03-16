@@ -4,9 +4,9 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const taskSchema = new mongoose.Schema({
   name: String,
   description: String,
-  dueDate: Date,
-  periodType: String,
-  period: String,
+  dueDate: {type: Date, required: true},
+  periodType: {type: String, required: true},
+  period: {type: String, required: true},
   taskListId: {type: mongoose.Schema.Types.ObjectId, ref: 'TaskList', required: true},
 });
 

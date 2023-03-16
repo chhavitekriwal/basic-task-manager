@@ -3,9 +3,9 @@ const logger = require('../utils/winston');
 
 const createTaskList = async (req, res) => {
   try {
-    const {name, description} = req.body;
-    await apiService.createTaskList(name, description);
-    res.status(201).json({status: 'Success', details: 'New list created'});
+    const {name, description, active} = req.body;
+    let newList = await apiService.createTaskList(name, description, active);
+    res.status(201).json({status: 'Success', details: 'New list created', newList});
   } catch (err) {
     res.status(400).json({status: 'Failure', details: err.message});
     logger.error(err);
@@ -15,8 +15,8 @@ const createTaskList = async (req, res) => {
 const createTask = async (req, res) => {
   try {
     let {name, description, periodType, period, dueDate, taskListId} = req.body;
-    await apiService.createTask(name, description, periodType, period, dueDate, taskListId);
-    res.status(201).json({status: 'Success', details: 'Created new task'});
+    let newTask = await apiService.createTask(name, description, periodType, period, dueDate, taskListId);
+    res.status(201).json({status: 'Success', details: 'Created new task', newTask});
   } catch (err) {
     res.status(400).json({status: 'Failure', details: err.message});
     logger.error(err);
