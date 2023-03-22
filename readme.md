@@ -1,7 +1,7 @@
 
 # Simple Task Manager Tool
 
-A small task manager built as a part of my internship application as backend developer at TaxAdda.
+A small task manager built as a part of a backend internship application.
 
 
 
@@ -10,13 +10,13 @@ A small task manager built as a part of my internship application as backend dev
 Clone the project
 
 ```bash
-  git clone https://github.com/chhavitekriwal/task-manager-taxadda.git
+  git clone https://github.com/chhavitekriwal/basic-task-manager.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd task-manager-taxadda
+  cd basic-task-manager
 ```
 
 Install dependencies
