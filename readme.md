@@ -4,28 +4,31 @@
 A small task manager built as a part of a backend internship application.
 
 
-
 ## Run Locally
 
-Clone the project
+- Clone the project
 
 ```bash
   git clone https://github.com/chhavitekriwal/basic-task-manager.git
 ```
 
-Go to the project directory
-
+- Go to the project directory
 ```bash
   cd basic-task-manager
 ```
+- Make a copy of `.env.template` and fill your MongoDB connection URI.
 
-Install dependencies
+```bash
+  cp .env.template .env
+```
+
+- Install dependencies
 
 ```bash
   yarn install
 ```
 
-Start the server
+- Start the server
 
 ```bash
   yarn start
@@ -58,6 +61,8 @@ Request Body:
 | `name`      | `string` | **Required**. Name of list |
 |`description`|`string`|Description of what the list contains|
 |`active`|`Boolean`|Whether the list is active|
+
+#### Create new task
 
 ```http
   POST /api/createtask
